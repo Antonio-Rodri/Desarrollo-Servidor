@@ -11,6 +11,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
     <body>
         <?php
         echo "<table>";
+        echo "<table border='1'>";
         for ($index = 0; $index < 10; $index++) {
             echo "<tr>";
             for ($index1 = 0; $index1 < 10; $index1++) {
