@@ -9,19 +9,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
         <title></title>
     </head>
     <body>
-        <table border='1'>
         <?php
-        $proto = rand(1, 100);
-        $random = ($proto % 2 === 0) ? $proto + 1 : $proto;
-        
-        for ($index = 0; $index < 10; $index++) {
-            echo "<tr>";
-            for ($index1 = 0; $index1 < 10; $index1++) {
-                echo "<td>$random";
-                $random = $random + 2;
-            }
+        $suma = 1;
+        echo "La suma de los cuadrados de los primeros 100 numeros es: ";
+        for ($index = 2; $index < 101; $index++) {
+            $suma += pow($index, 2);
         }
+        echo "$suma";
         ?>
-        </table>
     </body>
 </html>
