@@ -10,6 +10,7 @@
             echo "Apellidos: " . $_POST['apellidos'] . "<br>";
             $nom = $_POST['nombre'];
             $apell = $_POST['apellidos'];
+            echo "Modulos: <br>";
             foreach ($_POST['modulos'] as $value) {
                 echo $value.'<br>';
             }

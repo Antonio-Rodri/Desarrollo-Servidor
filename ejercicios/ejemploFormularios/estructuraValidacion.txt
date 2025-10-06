@@ -1,0 +1,25 @@
+Método 1:
+si(enviado formulario)
+	si(no hay errores) --Validación aquí
+		procesar formulario
+	fin si
+	sino
+		muestra formulacio con errores y datos correctos
+	fin si
+sino
+	muestra formulario en blanco
+fin si
+
+
+
+Método 2:
+si(enviado formulario)
+	valida datos
+fin si
+si(enviado formulario y no hay errores)
+	procesar formulario
+sino
+	muestra formulario -----> En blanco
+		|
+		|
+		-------> Con errores y datos correctos
