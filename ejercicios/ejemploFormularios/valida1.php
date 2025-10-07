@@ -17,9 +17,9 @@ if (isset($_POST['enviar'])) {
             Nombre: <input type="text" name="nombre" value="<?php if (!empty($_POST['nombre'])) echo $_POST['nombre'] ?>"/> <?php if (empty($_POST['nombre'])) echo "<span style=color:red> El nombre no puede estar vacio</span>"; ?><br>
             Apellidos: <input type="text" name="apellidos" value="<?php if (!empty($_POST['apellidos'])) echo $_POST['apellidos'] ?>"/><?php if (empty($_POST['apellidos'])) echo "<span style=color:red> El apellido no puede estar vacio</span>"; ?><br>
             Modulos:<?php if (empty($_POST['modulos'])) echo "<span style=color:red> Seleccione al menos 1 módulo</span>"; ?><br>
-            <input type="checkbox" name="modulos[]" value="DWES"/>Desarrollo web de entorno servidor<br>
-            <input type="checkbox" name="modulos[]" value="DWEC"/>Desarrollo web de entorno cliente<br>
-            <input type="checkbox" name="modulos[]" value="DIW"/>Diseño de interfaces web<br>
+            <input type="checkbox" name="modulos[]" value="DWES" <?php if(isset($_POST['modulos']) && in_array("DWES",$_POST['modulos'])) echo 'checked'; ?>/>Desarrollo web de entorno servidor<br>
+            <input type="checkbox" name="modulos[]" value="DWEC" <?php if(isset($_POST['modulos']) && in_array("DWEC",$_POST['modulos'])) echo 'checked'; ?>/>Desarrollo web de entorno cliente<br>
+            <input type="checkbox" name="modulos[]" value="DIW" <?php if(isset($_POST['modulos']) && in_array("DIW",$_POST['modulos'])) echo 'checked'; ?>/>Diseño de interfaces web<br>
             <button type="submit" name="enviar">Enviar</button><br>
             <a href="opciones.php?n=1">Opcion 1</a><br>
             <a href="opciones.php?n=2">Opcion 2</a><br>
