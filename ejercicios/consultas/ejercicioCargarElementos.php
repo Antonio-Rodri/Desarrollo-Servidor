@@ -36,22 +36,23 @@ if (!$error) {
         <link rel="stylesheet" href="estilos.css" />
     </head>
     <body>
-        <h1>Ejercicio: Conjunto de resultados en MySQLi</h1>
-        <form action="" method="post">
-            Producto:<br>
-            <select name="prod">
-                <?php
-                if (!$error) {
-                    foreach ($productos as $producto) {
-                        if (isset($_POST['enviar']) && $_POST['prod'] === $producto['cod'])
-                            echo "<option value='" . $producto['cod'] . "' selected>" . $producto['nombre_corto'] . "</option>";
-                        else
-                            echo "<option value='" . $producto['cod'] . "'>" . $producto['nombre_corto'] . "</option>";
-                    }
-                }
-                ?>
-            </select>
-            <button type="submit" name="enviar">Mostrar producto</button><br><br>
+        <div id="encabezado">
+            <h1>Ejercicio: Conjunto de resultados en MySQLi</h1>
+            <form action="" method="post">
+                Producto:
+                <select name="prod">
+                    <?php
+                    if (!$error)
+                        foreach ($productos as $producto)
+                            if (isset($_POST['enviar']) && $_POST['prod'] === $producto['cod'])
+                                echo "<option value='" . $producto['cod'] . "' selected>" . $producto['nombre_corto'] . "</option>";
+                            else
+                                echo "<option value='" . $producto['cod'] . "'>" . $producto['nombre_corto'] . "</option>";
+                    ?>
+                </select>
+                <button type="submit" name="enviar">Mostrar producto</button>
+        </div>
+        <div id="contenido">
             <h1>Stock del producto en las tiendas</h1>
             <?php
             if (isset($_POST['enviar']) && !$error)
@@ -59,9 +60,12 @@ if (!$error) {
                     echo 'Tienda: ' . $tienda['nombre'] . " :" . $tienda['unidades'] . " unidades<br>";
             ?>
         </form>
-            <?php
-            echo $msg;
-            ?>
-    </body>
+    </div><br>
+    <div id="pie">
+        <?php
+        echo $msg;
+        ?>
+    </div>
+</body>
 </html>
 
