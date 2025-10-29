@@ -19,20 +19,27 @@ if (!$error) {
 
     if (isset($_POST['enviar'])) {
         try {
-            $stock = $conex->query("SELECT stock.unidades, tienda.nombre FROM stock JOIN tienda ON stock.tienda = tienda.cod WHERE stock.producto ='" . $_POST['prod'] . "'")->fetch_all(MYSQLI_ASSOC);
+            $stock = $conex->query("SELECT stock.unidades, tienda.nombre, tienda.cod FROM stock JOIN tienda ON stock.tienda = tienda.cod WHERE stock.producto ='" . $_POST['prod'] . "'")->fetch_all(MYSQLI_ASSOC);
         } catch (mysqli_sql_exception $exc) {
             $msg = "Fallo al cargar el stock";
             $error = true;
         }
     }
-    
-    if(isset($_POST['actualizar'])){
+
+    if (isset($_POST['actualizar'])) {
         try {
-            $stmt = $conex->prepare("UPDATE stock SET unidades = ? WHERE tienda = ");
-        } catch (Exception $exc) {
+            $stmt = $conex->prepare("UPDATE stock SET unidades = ? WHERE tienda = ? AND producto = ?");
+            foreach ($_POST['stock'] as $cod_tienda => $unidades) {
+                $stmt->bind_param("iis", $unidades, $cod_tienda, $_POST['prod']);
+                $stmt->execute();
+            }
+            $msg = "Actualizado con éxito";
+        } catch (mysqli_sql_exception $exc) {
+            $msg = "Fallo al actualizar";
             echo $exc->getTraceAsString();
+            $error = true;
         }
-        }
+    }
 }
 ?>
 
@@ -67,10 +74,10 @@ if (!$error) {
                 <?php
                 if (isset($_POST['enviar']) && !$error) {
                     foreach ($stock as $tienda)
-                        echo 'Tienda: ' . $tienda['nombre'] . "<input type='number' name='$tienda[nombre]' value='$tienda[unidades]'> unidades";
+                        echo 'Tienda: ' . $tienda['nombre'] . "<input type='number' name='stock[" . $tienda['cod'] . "]' value='" . $tienda['unidades'] . "'> unidades<br>";
+                    echo "<input type='hidden' name='prod' value='" . $_POST['prod'] . "'>";
                     echo '<br><button type="submit" name="actualizar">Actualizar</button>';
                 }
-                
                 ?>
             </form>
         </div><br>
