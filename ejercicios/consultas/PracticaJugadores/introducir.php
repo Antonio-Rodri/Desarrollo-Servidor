@@ -1,0 +1,52 @@
+<?php
+$errores = [];
+$posiciones = ['portero', 'defensa', 'centrocampista', 'delantero'];
+if (isset($_POST['aceptar'])) {
+    if (empty($_POST['nombre']) || !preg_match('/[a-z]{1,30}/i', $_POST['nombre']))
+        $errores['nombre'] = 'Solo texto, máximo 30';
+    if (empty($_POST['dni']) || !preg_match('/\d{8}[A-Z]{1}/', $_POST['dni']))
+        $errores['dni'] = '8 dígitos con 1 letra mayúscula';
+    if (empty($_POST['dorsal']))
+        $errores['dorsal'] = 'No puede haber un jugador sin dorsal';
+    if (empty($_POST['posicion']))
+        $errores['posicion'] = 'No puede haber un jugador sin posicion';
+    if (empty($_POST['equipo']) || !preg_match('/[a-z]{1,30}/i', $_POST['equipo']))
+        $errores['equipo'] = 'Solo texto, máximo 30';
+    if (empty($_POST['goles']) || !preg_match('/\d+/', $_POST['goles']))
+        $errores['goles'] = 'Los goles han de ser sólo números';
+}
+?>
+
+<form action="" method="post">
+    Nombre:<input type="text" name="nombre" value="<?php if (empty($errores['nombre']) && isset($_POST['nombre'])) echo $_POST['nombre'] ?>"> <?php if (!empty($errores['nombre'])) echo "<span style=color:red>" . $errores['nombre'] . "</span>"; ?><br><br>
+    DNI:<input type="text" name="dni" value="<?php if (empty($errores['dni']) && isset($_POST['dni'])) echo $_POST['dni'] ?>"> <?php if (!empty($errores['dni'])) echo "<span style=color:red>" . $errores['dni'] . "</span>"; ?><br><br>
+    Dorsal: <?php if (!empty($errores['dorsal'])) echo "<span style=color:red>" . $errores['dorsal'] . "</span>"; ?><br>
+    <select name="dorsal">
+        <option value=""></option>
+        <?php
+        for ($index = 1; $index < 12; $index++) {
+            if (empty($errores['dorsal']) && isset($_POST['dorsal']) && $index === $_POST['dorsal']) {
+                echo "<option value='" . $index . "' selected>" . $index . "</option>";
+            } else {
+                echo "<option value='" . $index . "'>" . $index . "</option>";
+            }
+        }
+        ?>
+    </select><br>
+    Posicion: <?php if (!empty($errores['posicion'])) echo "<span style=color:red>" . $errores['posicion'] . "</span>"; ?><br>
+    <select multiple="" name="posicion">
+        <?php
+        foreach ($posiciones as $value) {
+            if (empty($errores['posicion']) && isset($_POST['posicion']) && $value === $_POST['posicion']) {
+                echo "<option value='" . $value . "' selected>" . $value . "</option>";
+            } else {
+                echo "<option value='" . $value . "'>" . $value . "</option>";
+            }
+        }
+        ?>
+    </select><br>
+    Equipo:<input type="text" name="equipo" value="<?php if (empty($errores['equipo']) && isset($_POST['equipo'])) echo $_POST['equipo'] ?>"> <?php if (!empty($errores['equipo'])) echo "<span style=color:red>" . $errores['equipo'] . "</span>"; ?><br><br>
+    Goles:<input type="text" name="goles" value="<?php if (empty($errores['goles']) && isset($_POST['goles'])) echo $_POST['goles'] ?>"> <?php if (!empty($errores['goles'])) echo "<span style=color:red>" . $errores['goles'] . "</span>"; ?><br><br>
+    <button type="submit" name="aceptar">Aceptar</button>
+</form>
+
