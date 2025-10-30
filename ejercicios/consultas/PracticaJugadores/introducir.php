@@ -14,6 +14,18 @@ if (isset($_POST['aceptar'])) {
         $errores['equipo'] = 'Solo texto, máximo 30';
     if (empty($_POST['goles']) || !preg_match('/\d+/', $_POST['goles']))
         $errores['goles'] = 'Los goles han de ser sólo números';
+    if (empty($errores)) {
+        try {
+            $conex = new mysqli("localhost", "dwes", "abc123.", "jugadores");
+            $conex->set_charset("utf8mb4");
+            $stmt = $conex->prepare("INSERT INTO jugador (dni,nombre,dorsal,posicion,equipo,goles) VALUES (?,?,?,?,?,?)");
+            $stmt->bind_param("ssissi", $_POST['dni'],$_POST['nombre'],$_POST['dorsal'],$_POST['posicion'],$_POST['equipo'],$_POST['goles']);
+            $stmt->execute();
+            echo 'Se ha insertado bien';
+        } catch (mysqli_sql_exception $exc) {
+            $errores['dni'] = 'DNI no válido, ya existe en la BBDD';
+        }
+    }
 }
 ?>
 
