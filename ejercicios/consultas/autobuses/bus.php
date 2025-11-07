@@ -2,9 +2,9 @@
 $errores = [];
 $msg = "";
 if (isset($_POST['enviar'])) {
-    if(empty($_POST['marca']))
+    if (empty($_POST['marca']))
         $errores['marca'] = "Introduzca una marca";
-    if(empty($_POST['plaza']))
+    if (empty($_POST['plaza']))
         $errores['plaza'] = "El autobús debe de tener plazas";
     if (empty($_POST['matricula']) || !preg_match('/\d{3}[A-Z]{3}/', $_POST['matricula'])) {
         $errores['matricula'] = 'La matricula consta de 3 números con 3 letras mayúsculas';
@@ -13,26 +13,17 @@ if (isset($_POST['enviar'])) {
             $bd = 'mysql:host=localhost; dbname=autobuses;charset=utf8mb4';
             $opciones = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, PDO::ATTR_CASE => PDO::CASE_LOWER);
             $conex = new PDO($bd, 'dwes', 'abc123.', $opciones);
-            $result = $conex->query("SELECT matricula FROM autos");
-            if ($result->rowCount() > 0) {
-                while ($row = $result->fetchObject()) {
-                    if ($row->matricula == $_POST['matricula']) {
-                        $errores['matricula'] = "La matrícula ya existe";
-                        break;
-                    }
-                }
-            }
+            $result = $conex->query("SELECT matricula FROM autos WHERE matricula = '$_POST[matricula]'")->fetch();
+            if ($result)
+                $errores['matricula'] = "La matrícula ya existe";
         } catch (PDOException $exc) {
             echo $exc->getTraceAsString();
             echo $exc->getMessage();
         }
     }
 
-    if (empty($errores['matricula'])) {
+    if (empty($errores)) {
         try {
-            $bd = 'mysql:host=localhost; dbname=autobuses;charset=utf8mb4';
-            $opciones = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, PDO::ATTR_CASE => PDO::CASE_LOWER);
-            $conex = new PDO($bd, 'dwes', 'abc123.', $opciones);
             $result = $conex->prepare("INSERT INTO autos VALUES (:matricula, :marca, :plaza)");
             $result->execute(array("matricula" => $_POST['matricula'], "marca" => $_POST['marca'], "plaza" => $_POST['plaza']));
             $msg = "Autobús insertado correctamente";

@@ -7,6 +7,6 @@
     <h1>Menú</h1>
     1.-<a href="bus.php">Añadir autobús</a><br><br>
     2.-<a href="viaje.php">Añadir viaje</a><br><br>
-    3.-<a href="modificar.php">Modificar/borrar viaje</a><br><br>
-    4.-<a href="reservar.php">Reservar</a><br><br>
+    3.-<a href="reserva.php">Modificar/borrar viaje</a><br><br>
+    4.-<a href="modificar.php">Reservar</a><br><br>
 </body>
