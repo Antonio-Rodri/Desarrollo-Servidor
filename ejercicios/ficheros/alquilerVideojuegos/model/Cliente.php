@@ -16,7 +16,7 @@ class Cliente {
         $this->apellidos = $apellidos;
         $this->direccion = $direccion;
         $this->localidad = $localidad;
-        $this->clave = $clave;
+        $this->clave = password_hash($clave, PASSWORD_DEFAULT);
         $this->tipo = $tipo;
     }
 

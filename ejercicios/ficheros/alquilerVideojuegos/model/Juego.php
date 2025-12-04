@@ -41,5 +41,17 @@ class Juego {
                 . ", descripcion=" . $this->descripcion
                 . "]";
     }
+    
+    public function generarCodigoCorto(): string {
+        $palabras = explode(' ', $this->nombre_juego);
+        $iniciales = '';
+        
+        foreach ($palabras as $palabra) {
+            if (!empty($palabra)) {
+                $iniciales .= $palabra[0];
+            }
+        }
+        return $iniciales . '-' . $this->nombre_consola;
+    }
 
 }

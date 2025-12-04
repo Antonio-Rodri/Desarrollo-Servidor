@@ -21,21 +21,37 @@ class clienteController {
     public static function verificar($dni, $clave) {
         try {
             $conex = new Conexion();
-            $result = $conex->query("SELECT * FROM cliente WHERE dni=$dni");
+            $result = $conex->query("SELECT * FROM cliente WHERE dni='$dni'");
             if ($result->num_rows == 0) {
-                $cliente->false;
+                $cliente = false;
             } else {
                 $row = $result->fetch_assoc();
-                if (password_verify($clave, $row['clave'])) {
-                    $cliente = new Cliente($row['dni'], $row['nombre'], $row['apellidos'], $row['direccion'], $row['localidad'], $row['clave'], $row['tipo']);
+                if (password_verify($clave, $row['Clave'])) {
+                    $cliente = new Cliente($row['DNI'], $row['Nombre'], $row['Apellidos'], $row['Direccion'], $row['Localidad'], $row['Clave'], $row['Tipo']);
                 } else {
-                    $cliente->false;
+                    $cliente = false;
                 }
             }
             return $cliente;
             $conex->close();
         } catch (Exception $exc) {
             echo $exc->getMessage();
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    public static function dniRepetido($dni) {
+        try {
+            $conex = new Conexion();
+            $stmt = $conex->prepare("SELECT DNI FROM cliente WHERE DNI = '$dni'");
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
