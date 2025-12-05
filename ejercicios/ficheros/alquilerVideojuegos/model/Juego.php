@@ -51,7 +51,8 @@ class Juego {
                 $iniciales .= $palabra[0];
             }
         }
-        return $iniciales . '-' . $this->nombre_consola;
+        $this->codigo = $iniciales . '-' . $this->nombre_consola;
+        return $this->codigo;
     }
 
 }
