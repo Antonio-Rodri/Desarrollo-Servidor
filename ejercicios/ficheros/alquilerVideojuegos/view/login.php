@@ -15,6 +15,7 @@ if (isset($_POST['entrar'])) {
             session_start();
             $_SESSION["user"] = $user;
             header("Location: index.php");
+            exit;
         } else {
             $errores['login'] = "Usuario o contraseña no encontrado";
         }

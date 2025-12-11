@@ -42,7 +42,7 @@ class Juego {
                 . "]";
     }
     
-    public function generarCodigoCorto(): string {
+    public function generarCodigoCorto() {
         $palabras = explode(' ', $this->nombre_juego);
         $iniciales = '';
         
@@ -52,7 +52,6 @@ class Juego {
             }
         }
         $this->codigo = $iniciales . '-' . $this->nombre_consola;
-        return $this->codigo;
     }
 
 }
