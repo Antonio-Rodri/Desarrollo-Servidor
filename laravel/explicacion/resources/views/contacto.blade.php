@@ -6,6 +6,6 @@
         <p>Es menor de edad</p>
     @endif
 
-    @foreach ($frutas as $fruta)
+    @foreach ($frutas as $fruta) {{-- comentarios --}}
         {{ $fruta }}<br>
     @endforeach
