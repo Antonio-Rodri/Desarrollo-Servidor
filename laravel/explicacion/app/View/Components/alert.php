@@ -26,4 +26,10 @@ class alert extends Component
     {
         return view('components.alert');
     }
+
+    public function peligro()
+    {
+        if ($this->colorbg == "red")
+            return "¡¡¡¡¡¡¡PELIGRO!!!!!!!!";
+    }
 }
