@@ -1,7 +1,7 @@
 <x-layouts::app :title="__('Create')">
     <x-layouts::auth>
         <div class="flex flex-col gap-6">
-            <form method="POST" action="{{ route('catalog') }}" class="flex flex-col gap-6">
+            <form method="POST" action="{{ route('create') }}" class="flex flex-col gap-6">
                 @csrf
                 <flux:input name="titulo" :label="__('Título')" type="text" required autofocus autocomplete="titulo"
                     :placeholder="__('Título de la película')" />

@@ -15,17 +15,17 @@ Route::get('/catalog', [CatalogController::class, 'getIndex'])
     ->middleware(['auth', 'verified'])
     ->name('catalog');
 
-Route::get('/catalog/create', [CatalogController::class, 'getCreate'])
-    ->middleware(['auth', 'verified'])
-    ->name('create');
+// Route::get('/catalog/create', [CatalogController::class, 'getCreate'])
+//     ->middleware(['auth', 'verified'])
+//     ->name('create');
 
 Route::get('/catalog/show/{id}', [CatalogController::class, 'getShow'])
     ->middleware(['auth', 'verified'])
     ->name('show');
 
-Route::get('/catalog/edit/{id}', [CatalogController::class, 'getEdit'])
-    ->middleware(['auth', 'verified'])
-    ->name('edit');
+// Route::get('/catalog/edit/{id}', [CatalogController::class, 'getEdit'])
+//     ->middleware(['auth', 'verified'])
+//     ->name('edit');
 
 Route::post('/catalog/create', [CatalogController::class, 'postCreate'])
     ->middleware(['auth', 'verified'])
