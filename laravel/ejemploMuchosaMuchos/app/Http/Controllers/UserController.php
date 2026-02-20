@@ -72,13 +72,17 @@ class UserController extends Controller
     public function nota()
     {
         $user = Auth::user();
-        $estudiantes = $user->estudiantes;
+        $estudiantes = $user->estudiantesUnicos();
         return view('profesor.ponerNota', compact('estudiantes'));
     }
 
     public function putNota(Request $request)
     {
-        $estudiante = Student::find($request->id);
-        return redirect()->route('profesor.index');
+        $estudiante = Student::find($request->estudiante_id);
+        $estudiante->profesores()->attach(Auth::id(), [
+            'asignatura' => $request->asignatura,
+            'nota' => $request->nota,
+        ]);
+        return redirect()->route('dashboard');
     }
 }

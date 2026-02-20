@@ -15,7 +15,7 @@
             autocomplete="nota" :placeholder="__('Nota')" step="0.01" min="0" max="10" />
         <div class="flex items-center justify-end">
             <flux:button type="submit" variant="primary" class="w-full" data-test="register-user-button">
-                {{ __('Crear estudiante') }}
+                {{ __('Enviar') }}
             </flux:button>
         </div>
     </form>
